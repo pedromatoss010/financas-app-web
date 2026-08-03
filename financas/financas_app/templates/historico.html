@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Histórico{% endblock %}
+
+{% block content %}
+    <h2 style="margin-bottom: 1.25rem;">Histórico de transações</h2>
+    <table>
+        <tr>
+            <th>Tipo</th>
+            <th>Valor</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Ações</th>
+        </tr>
+        {% for t in transacoes %}
+        <tr>
+            <td>{{ t.tipo }}</td>
+            <td>R$ {{ "%.2f"|format(t.valor) }}</td>
+            <td>{{ t.categoria }}</td>
+            <td>{{ t.descricao }}</td>
+            <td>{{ t.data.strftime("%d/%m/%Y") }}</td>
+            <td>
+                <a href="/editar/{{ t.id }}">Editar</a> |
+                <form method="POST" action="/excluir/{{ t.id }}" style="display:inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn-excluir" onclick="return confirm('Excluir essa transação?')">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Criar conta{% endblock %}
+
+{% block content %}
+    <div class="card" style="max-width: 420px;">
+        <h2 style="margin-bottom: 0.5rem;">Criar conta</h2>
+
+        {% if erro %}
+            <p style="color: var(--terracota); margin-top: 1rem;">{{ erro }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Senha</label>
+            <input type="password" name="senha" required>
+
+            <button type="submit">Criar conta</button>
+        </form>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            Já tem conta? <a href="/login">Entrar</a>
+        </p>
+    </div>
+{% endblock %}

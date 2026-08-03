@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="stats">
+        <div class="stat-card">
+            <div class="label">Entradas</div>
+            <div class="valor">R$ {{ "%.2f"|format(entradas) }}</div>
+        </div>
+        <div class="stat-card saida">
+            <div class="label">Saídas</div>
+            <div class="valor">R$ {{ "%.2f"|format(saidas) }}</div>
+        </div>
+        <div class="stat-card lucro">
+            <div class="label">Lucro</div>
+            <div class="valor">R$ {{ "%.2f"|format(lucro) }}</div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-bottom: 1rem;">Gastos por categoria</h3>
+        <canvas id="graficoCategorias"
+                data-categorias='{{ nomes_categorias | tojson }}'
+                data-valores='{{ valores_categorias | tojson }}'>
+        </canvas>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <script src="{{ url_for('static', filename='grafico.js') }}"></script>
+{% endblock %}
