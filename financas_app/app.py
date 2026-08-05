@@ -43,8 +43,16 @@ def registrar():
         senha = request.form["senha"]
         if Usuario.query.filter_by(email=email).first():
             return render_template("registrar.html", erro="Esse email já está cadastrado.")
-        if len(senha) < 6:
+        
+        if len(senha) < 8:
             return render_template("registrar.html", erro="A senha deve ter pelo menos 6 caracteres.")
+        
+        if not any(c.isupper() for c in senha):
+            return render_template("registrar.html", erro="A senha deve conter pelo menos uma letra maiúscula.")
+        
+        if not any(c.isdigit() for c in senha):
+            return render_template("registrar.html", erro="A senha precisa ter pelo menos um número.")
+        
         novo_usuario = Usuario(email=email)
         novo_usuario.set_senha(senha)
         db.session.add(novo_usuario)
@@ -94,15 +102,16 @@ def home():
         Transacao.categoria, db.func.sum(Transacao.valor)
     ).filter_by(tipo="saida", usuario_id=current_user.id).group_by(Transacao.categoria).all()
 
+    
     nomes_categorias = [c[0] for c in categorias]
     valores_categorias = [c[1] for c in categorias]
 
+    
     return render_template(
-        "index.html",
-        entradas=entradas, saidas=saidas, lucro=lucro,
-        nomes_categorias=nomes_categorias, valores_categorias=valores_categorias
-    )
-
+    "index.html",
+    entradas=entradas, saidas=saidas, lucro=lucro,
+    nomes_categorias=nomes_categorias, valores_categorias=valores_categorias,
+)
 
 @app.route("/nova", methods=["GET", "POST"])
 @login_required
