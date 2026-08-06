@@ -17,7 +17,9 @@ body {
     color: var(--texto);
     line-height: 1.5;
 }
-
+.atenção {
+    font-family: Arial, Helvetica, sans-serif;
+}
 h1, h2, h3 {
     font-family: 'Fraunces', serif;
     font-weight: 700;
@@ -120,7 +122,11 @@ button {
     cursor: pointer;
     transition: background 0.2s;
 }
-button:hover { background: var(--verde-medio); }
+button:hover { 
+    background: var(--verde-medio); 
+    transform: scale(1.02);
+    transition: transform 0.2s;
+}
 
 .btn-excluir {
     background-color: rgb(179, 4, 4);

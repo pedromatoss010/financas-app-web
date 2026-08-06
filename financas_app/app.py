@@ -12,7 +12,8 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+database_url = os.getenv("DATABASE_URL", "sqlite:///database.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 db.init_app(app)
 csrf = CSRFProtect(app)
