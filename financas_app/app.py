@@ -85,6 +85,17 @@ def login():
 def limite_tentativas(e):
     return render_template("login.html", erro="Muitas tentativas de login. Aguarde um minuto e tente novamente."), 429
 
+@app.route("/login-visitante")
+def logar_visitante():
+    email_demo = os.getenv("DEMO_EMAIL")
+    usuario = Usuario.query.filter_by(email=email_demo).first()
+
+    if usuario:
+        login_user(usuario)
+        return redirect("/")
+
+    return redirect("/login")
+
 @app.route("/logout")
 @login_required
 def logout():
