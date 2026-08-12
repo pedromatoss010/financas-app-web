@@ -118,12 +118,11 @@ button {
     border-radius: 6px;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s;
 }
-button:hover { 
-    background: var(--verde-medio); 
+button:hover {
+    background: var(--verde-medio);
     transform: scale(1.02);
-    transition: transform 0.2s;
 }
 
 .btn-excluir {
@@ -157,6 +156,7 @@ th {
     font-size: 0.75rem;
     letter-spacing: 0.05em;
 }
+
 @media (max-width: 640px) {
     .navbar {
         flex-direction: column;
@@ -165,9 +165,15 @@ th {
         padding: 1rem;
     }
 
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+
     .nav-links a {
         margin-left: 0;
-        margin-right: 1rem;
     }
 
     .container {
@@ -186,6 +192,11 @@ th {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
+    }
+
+    th, td {
+        padding: 0.6rem 0.7rem;
+        font-size: 0.8rem;
     }
 
     .card {
